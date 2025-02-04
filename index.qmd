@@ -1,11 +1,7 @@
 ---
-title: "AKRO HCD Short Reports"
+title: "Alaska Regional Office \nHabitat Conservation Division Short Reports"
 ---
 
-This is a Quarto website.
+This website is a place where AKRO HCD staff can report on projects which are ongoing via "Short Reports". This quarto website was produced as a product from the Fall 2024 Openscapes cohort.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
-
-```{r}
-1 + 1
-```
+**Authors:** Mallarie Yeager, Molly Zaleski, Skylar Bayer and Mason Smith

@@ -3,12 +3,12 @@ project:
   output-dir: docs
 
 website:
-  title: "HCD_short_report.github.io"
+  title: "AK HCD Short Reports"
   navbar:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
+      - Beaver_coho_analysis.qmd
 
 format:
   html:
