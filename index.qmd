@@ -5,3 +5,6 @@ title: "Alaska Regional Office \nHabitat Conservation Division Short Reports"
 This website is a place where AKRO HCD staff can report on projects which are ongoing via "Short Reports". This quarto website was produced as a product from the Fall 2024 Openscapes cohort.
 
 **Authors:** Mallarie Yeager, Molly Zaleski, Skylar Bayer and Mason Smith
+
+
+![[Alaska shorezone](https://www.fisheries.noaa.gov/alaska/habitat-conservation/alaska-shorezone)](shorezone.jpg)
