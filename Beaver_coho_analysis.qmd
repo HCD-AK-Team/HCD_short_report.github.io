@@ -14,16 +14,15 @@ format:
 ![**Beaver pond in Alaska** [photo reference](https://alaskamagazine.com/authentic-alaska/wildlife-nature/beavers-make-their-mark-on-alaska/)](Beaver_pond.png){.lightbox}
 
 ::: justify
-### **Purpose** 
+### **Purpose**
+
 In collaboration with folks at HCD (Luke Byker and Julianne Rosset), Mason Smith and Mallarie Yeager analyzed coho success within beaver bonds and downstream reference sites within 7 streams. In this "Short Report", we illustrate our methods on analysis, written results with corresponding figures and a small discussion on specific future variables one might want to consider if expanding on this work. This report will be integrated into our manuscript which we plan to submit soon. Citations and links will be updated once available.
 
 ##### ***Objective: To understand how beaver pond presence influences coho overwintering success***
 
-
-**Question 1:** Does beaver pond presence enhance coho catch per unit trap (CPUT)? 
+**Question 1:** Does beaver pond presence enhance coho catch per unit trap (CPUT)?
 
 **Question 2:** Are there environmental drivers which may explain beaver pond enhancement?
-
 :::
 
 ![**Beaver** [photo reference](https://faculty.ung.edu/jhamilton/tumblingcreek/beaverpond/beaverpond.htm)](beaver.jpg){.lightbox}
@@ -36,8 +35,7 @@ To analyze whether beaver ponds enhance juvenile coho presence in this study, we
 
 ### **Results**
 
-Although there was variation in CPUT across paired sites (i.e. river stems), we overall found beaver ponds had on average significantly higher catch per unit trap (CPUT) of coho compared to their paired reference locations (one-way paired T-test: t(6) = 3.22, p-value = 0.009; Figure 1).
-As beaver ponds do in fact enhance coho CPUT, we next looked at which environmental factors might explain the variation in CPUT across beaver pond vs reference and site. Our best fitting model consisted of the following environmental factors: dissolved oxygen, temperature, water depth, distance from mainstream river stem, and ice thickness.
+Although there was variation in CPUT across paired sites (i.e. river stems), we overall found beaver ponds had on average significantly higher catch per unit trap (CPUT) of coho compared to their paired reference locations (one-way paired T-test: t(6) = 3.22, p-value = 0.009; Figure 1). As beaver ponds do in fact enhance coho CPUT, we next looked at which environmental factors might explain the variation in CPUT across beaver pond vs reference and site. Our best fitting model consisted of the following environmental factors: dissolved oxygen, temperature, water depth, distance from mainstream river stem, and ice thickness.
 
 ```{r, include = FALSE}
 library(here)
@@ -129,8 +127,164 @@ ggsave("Figure1_CPUTofCoho_across_treatment_site.png", dpi = 500)
 
 ![**Figure 1.** The CPUT of coho across site and treatment. The distribution of the raw CPUT of coho data across treatment is shown via the violin plot and the jittered opaque dots by site color. The site mean CPUT of coho across treatment is represented via the solid color points and the paired design of the sites across treatment via the connected lines. The overall mean CPUT of coho across treatment is shown by the black diamond points.](Figure1_CPUTofCoho_across_treatment_site.png)
 
+```{r, include=FALSE}
+#gam
+m2 <- mgcv::gam(Coho.CPUT ~ 
+                            s(DO, k=10, m=2, bs="tp", by=treatment) +
+                            s(Temp, k=5, m=2, bs="tp", by=treatment) + 
+                            s(water_depth, k=10, m=2, bs="tp", by=treatment) +
+                            #s(total_depth, k=5, m=2, bs="tp", by=treatment) +          
+                            #s(Velocity, k=5, m=2, bs="tp", by=treatment) +
+                            s(mainstream_distance, k=6, m=2, bs="tp", by=treatment) +
+                            s(ice_thickness, k=5, m=2, bs="tp", by=treatment) +
+                            #s(Conductivity, k=8, m=2, bs="tp", by=treatment) +
+                            #s(pH, k=8, m=2, bs="tp", by=treatment) +
+                            s(Site, bs = 're'),
+                            family = tw(link="log"),
+                            data = all_dat2,
+                            method = 'REML')
+summary(m2) 
+par(mfrow=c(2,2))
+gam.check(m2)
+par(mfrow=c(3,4)) #to partition the Plotting Window
+plot.gam(m2, residuals=TRUE, rug=FALSE, shade=TRUE, all.terms=TRUE, scale=0, seWithMean = TRUE)
+s1 <-  "s(DO, k=10, m=2, bs='tp', by=treatment)"
+
+p1 <- draw(m2, select = "s(DO)", partial_match =  T, residuals=TRUE, rug=FALSE)
+```
+
+```{r, include=FALSE}
+
+sm <- smooth_estimates(m2) |>
+  add_confint()
+
+partial.resid <- all_dat2 |>
+  add_partial_residuals(m2)
+
+DO.sm <- sm[which(is.na(sm$DO) == F),c(4:7,13:14)]
+DO <- cbind(all_dat2[,3], partial.resid[,c(23,31:32)])
+colnames(DO)[c(1,3:4)] <- c("Site", "beaver pond", "reference")
+DO <- DO %>%
+  pivot_longer(cols = 3:4,
+               names_to = "treatment",
+               values_to = "resid")
+
+DO.plot <-  ggplot(DO.sm) +
+  geom_ribbon(aes(ymin = .lower_ci, ymax = .upper_ci, x = DO),
+              alpha = 0.2
+  )+
+  geom_point(aes(x = DO, y = resid, color = Site),
+             data = DO, cex = 1.5, alpha = 0.6
+  ) +
+  scale_color_manual(values = pal$col)+
+  geom_line(aes(x = DO, y = .estimate), lwd = 0.8) +
+    
+  labs(y = "Partial effect", title = "s(DO)")+
+  facet_wrap(.~treatment, scales = "free_y")+
+  theme_bw()+
+  theme(legend.position = "none")
+
+Temp.sm <- sm[which(is.na(sm$Temp) == F),c(4:5,7:8,13:14)]
+
+Temp <- cbind(all_dat2[,3], partial.resid[,c(22,33:34)])
+colnames(Temp)[c(1,3:4)] <- c("Site", "beaver pond", "reference")
+Temp <- Temp %>%
+  pivot_longer(cols = 3:4,
+               names_to = "treatment",
+               values_to = "resid")
+
+Temp.plot <-ggplot(Temp.sm) +
+  geom_ribbon(aes(ymin = .lower_ci, ymax = .upper_ci, x = Temp),
+              alpha = 0.2
+  )+
+  geom_point(aes(x = Temp, y = resid, color = Site),
+             data = Temp, cex = 1.5, alpha = 0.6
+  ) +
+      scale_color_manual(values = pal$col)+
+  geom_line(aes(x = Temp, y = .estimate),  lwd = 0.8) +
+  labs(y = "Partial effect", title = "s(Temp)")+
+  facet_wrap(.~treatment, scales = "free_y")+
+  theme_bw()+
+  theme(legend.position = "none")
 
 
+
+water_depth.sm <- sm[which(is.na(sm$water_depth) == F), c(4:5,7,9,13:14)]
+
+water_depth <- cbind(all_dat2[,3], partial.resid[,c(21,35:36)])
+colnames(water_depth)[c(1,3:4)] <- c("Site", "beaver pond", "reference")
+water_depth <- water_depth %>%
+  pivot_longer(cols = 3:4,
+               names_to = "treatment",
+               values_to = "resid")
+
+water.depth.plot <- ggplot(water_depth.sm) +
+  geom_ribbon(aes(ymin = .lower_ci, ymax = .upper_ci, x = water_depth),
+              alpha = 0.2
+  )+
+  geom_point(aes(x = water_depth, y = resid, color = Site),
+             data = water_depth, cex = 1.5, alpha = 0.6
+  ) +
+    scale_color_manual(values = pal$col)+
+  geom_line(aes(x = water_depth, y = .estimate),  lwd = 0.8) +
+  labs(y = "Partial effect", title = "s(water depth)")+
+  facet_wrap(.~treatment, scales = "free_y")+
+  theme_bw()
+
+
+mainstream_distance.sm <- sm[which(is.na(sm$mainstream_distance) == F), c(4:5,7,10,13:14)]
+
+mainstream_distance <- cbind(all_dat2[,3], partial.resid[,c(25,37:38)])
+colnames(mainstream_distance)[c(1,3:4)] <- c("Site", "beaver pond", "reference")
+mainstream_distance <- mainstream_distance %>%
+  pivot_longer(cols = 3:4,
+               names_to = "treatment",
+               values_to = "resid")
+
+mainstream.dist.plot <- ggplot(mainstream_distance.sm) +
+  geom_ribbon(aes(ymin = .lower_ci, ymax = .upper_ci, x = mainstream_distance),
+              alpha = 0.2
+  )+
+  geom_point(aes(x = mainstream_distance, y = resid, color = Site),
+             data = mainstream_distance, cex = 1.5, alpha = 0.6
+  ) +
+      scale_color_manual(values = pal$col)+
+  geom_line(aes(x = mainstream_distance, y = .estimate), lwd = 0.8) +
+  labs(y = "Partial effect", title = "s(mainstream distance)")+
+  facet_wrap(.~treatment, scales = "free_y")+
+  theme_bw()+
+  theme(legend.position = "none")
+
+ice_thickness.sm <- sm[which(is.na(sm$ice_thickness) == F), c(4:5,7,11,13:14)]
+
+ice_thickness <- cbind(all_dat2[,3], partial.resid[,c(24,39:40)])
+colnames(ice_thickness)[c(1,3:4)] <- c("Site", "beaver pond", "reference")
+ice_thickness <- ice_thickness %>%
+  pivot_longer(cols = 3:4,
+               names_to = "treatment",
+               values_to = "resid")
+
+ice.plot <- ggplot(ice_thickness.sm) +
+  geom_ribbon(aes(ymin = .lower_ci, ymax = .upper_ci, x = ice_thickness),
+              alpha = 0.2
+  )+
+    geom_line(aes(x = ice_thickness, y = .estimate),  lwd = 0.8) +
+  labs(y = "Partial effect", title = "s(ice thickness)")+
+  geom_point(aes(x = ice_thickness, y = resid, color = Site),
+             data = ice_thickness, cex = 1.5, alpha = 0.6
+  ) +
+      scale_color_manual(values = pal$col)+
+  facet_wrap(.~treatment, scales = "free_y")+
+  theme_bw()+
+  theme(legend.position = "none")
+
+
+
+DO.plot / Temp.plot / water.depth.plot / mainstream.dist.plot / ice.plot
+ggsave("Figure2_covariate_partial_effects_plots.png", dpi = 500, width = 7, height = 12)
+```
+
+![**Figure 2.** The partial effects plots of the five covariates that were identified in the best fitting model of coho CPUT. Each row is a different covariate, labeled by the title on the upper left side of the plot. The left column is the partial effect plots in the beaver ponds and the right column is the partial effects plots in the reference locations. Points overlaid on graphs represent the environmental covariate by coho catch of a single trap (while holding all other covariates constant) at each site (coded by color).](Figure2_covariate_partial_effects_plots.png)
 
 ### **References**
 
