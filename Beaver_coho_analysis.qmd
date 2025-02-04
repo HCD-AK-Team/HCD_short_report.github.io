@@ -15,9 +15,9 @@ format:
 
 ::: justify
 ### **Purpose** 
-In collaboration with folks at HCD (Luke Byker and Julianne Rosset), Mason and Mallarie analyzed success of coho within beaver bonds and downstream reference areas within 7 streams. In this "Short Report", we illustrate our methods on analysis, written results with corresponding figures and a small discussion on specific future variables one might want to consider if expanding on this work.
+In collaboration with folks at HCD (Luke Byker and Julianne Rosset), Mason Smith and Mallarie Yeager analyzed coho success within beaver bonds and downstream reference sites within 7 streams. In this "Short Report", we illustrate our methods on analysis, written results with corresponding figures and a small discussion on specific future variables one might want to consider if expanding on this work. This report will be integrated into our manuscript which we plan to submit soon. Citations and links will be updated once available.
 
-###### ***Objective: To understand how beaver pond presence influences coho overwintering success***
+##### ***Objective: To understand how beaver pond presence influences coho overwintering success***
 
 
 **Question 1:** Does beaver pond presence enhance coho catch per unit trap (CPUT)? 
@@ -110,11 +110,7 @@ reference <- subset(all_dat3,  treatment == "reference", log10_Coho_CPUT,
 mod.t.test <- t.test(Beaver_pond, reference, paired = TRUE, alternative = "greater") # p = .009
 ```
 
-```{r}
-#| label: Figure_1
-#| fig-cap: "**Figure 1.** The CPUT of coho across site and treatment. The distribution of the raw CPUT of coho data across treatment is shown via the violin plot and the jittered opaque dots by site color. The site mean CPUT of coho across treatment is represented via the solid color points and the paired design of the sites across treatment via the connected lines. The overall mean CPUT of coho across treatment is shown by the black diamond points."
-
-
+```{r, include=FALSE}
 ggplot(all_dat2)+
   geom_violin(aes(x = treatment, y = log10_Coho_CPUT))+
    geom_jitter(aes(x  = treatment, y =log10_Coho_CPUT, color = Site),
@@ -128,7 +124,15 @@ ggplot(all_dat2)+
    ylab("CPUT of Coho (log10)")+
   xlab("")+
   theme_bw()
+ggsave("Figure1_CPUTofCoho_across_treatment_site.png", dpi = 500)
 ```
+
+<!-- #| label: Figure_1 -->
+<!-- #| fig-cap: "**Figure 1.** The CPUT of coho across site and treatment. The distribution of the raw CPUT of coho data across treatment is shown via the violin plot and the jittered opaque dots by site color. The site mean CPUT of coho across treatment is represented via the solid color points and the paired design of the sites across treatment via the connected lines. The overall mean CPUT of coho across treatment is shown by the black diamond points." -->
+
+![**Figure 1.** The CPUT of coho across site and treatment. The distribution of the raw CPUT of coho data across treatment is shown via the violin plot and the jittered opaque dots by site color. The site mean CPUT of coho across treatment is represented via the solid color points and the paired design of the sites across treatment via the connected lines. The overall mean CPUT of coho across treatment is shown by the black diamond points.](Figure1_CPUTofCoho_across_treatment_site.png)
+
+
 
 
 ### **References**
