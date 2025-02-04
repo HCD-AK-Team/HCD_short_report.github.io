@@ -1,20 +1,127 @@
 ---
 title: "Coho-Beaver Analysis"
+execute: 
+  echo: false
+editor_options: 
+  chunk_output_type: console
 ---
 
 **Authors:** Mallarie Yeager and Mason Smith
 
-![Beaver pond in Alaska (https://alaskamagazine.com/authentic-alaska/wildlife-nature/beavers-make-their-mark-on-alaska/)](Beaver_pond.png)
+![**Beaver pond in Alaska** [photo reference](https://alaskamagazine.com/authentic-alaska/wildlife-nature/beavers-make-their-mark-on-alaska/)](Beaver_pond.png){.lightbox}
 
-#### **Purpose:** In collaboration with folks at HCD, Mason and Mallarie analyzed success of coho within beaver bonds and downstream reference areas within 7 streams. In this "Short Report", we illustrate our methods on analysis, written results with corresponding figures and a small discussion on specifc future variables one might want to consider if expanding on this work. 
+::: justify
+##### **Purpose:** In collaboration with folks at HCD, Mason and Mallarie analyzed success of coho within beaver bonds and downstream reference areas within 7 streams. In this "Short Report", we illustrate our methods on analysis, written results with corresponding figures and a small discussion on specific future variables one might want to consider if expanding on this work.
+:::
 
+![**Beaver** [photo reference](https://faculty.ung.edu/jhamilton/tumblingcreek/beaverpond/beaverpond.htm)](beaver.jpg){.lightbox}
 
-### **Methods** 
+### **Methods**
 
 ##### *Analyses*
 
-To analyze whether beaver ponds enhance juvenile coho presence in this study, we used a one-way paired T-test to test whether catch per unit trap (CPUT) of coho was significantly higher at beaver ponds compared to reference locations within a site (i.e., river stem). The paired design of the paired one-way T-test allows us to address the non-independence within a site, while the one-way allows for a hypothesis driven test that beaver ponds result in more coho than their paired reference locations. Once testing whether beaver ponds enhance coho CPUT, we can examine whether specific environmental factors explain beaver pond enhancement through correlative models. We used generalized additive models (GAMs) to examine the relationship between coho beaver abundance and environmental conditions within beaver ponds or reference locations within a site. The site (i.e. river stem) of each dam was treated as a random effect due to the non-independence of treatment types (above vs below dams) within each river stem. This allowed for examining relationships between the coho beaver abundance and the fixed effects, while also taking into account the variation from random effects occurring at different levels within the population (West et al. 2022).  Before fitting models, we examined and removed environmental covariates which were highly correlated and log transformed coho CPUT to meet assumptions of normality. For model fitting we used the gam function in the ‘mgcv’ package in R (Wood, 2011). We tested the full covariate model then removed poor fitting covariates until we received the best fit model. We looked for the highest deviance explained while minimizing restricted maximum likelihood (REML) value. 
+To analyze whether beaver ponds enhance juvenile coho presence in this study, we used a one-way paired T-test to test whether catch per unit trap (CPUT) of coho was significantly higher at beaver ponds compared to reference locations within a site (i.e., river stem). The paired design of the paired one-way T-test allows us to address the non-independence within a site, while the one-way allows for a hypothesis driven test that beaver ponds result in more coho than their paired reference locations. Once testing whether beaver ponds enhance coho CPUT, we can examine whether specific environmental factors explain beaver pond enhancement through correlative models. We used generalized additive models (GAMs) to examine the relationship between coho beaver abundance and environmental conditions within beaver ponds or reference locations within a site. The site (i.e. river stem) of each dam was treated as a random effect due to the non-independence of treatment types (above vs below dams) within each river stem. This allowed for examining relationships between the coho beaver abundance and the fixed effects, while also taking into account the variation from random effects occurring at different levels within the population (West et al. 2022). Before fitting models, we examined and removed environmental covariates which were highly correlated and log transformed coho CPUT to meet assumptions of normality. For model fitting we used the gam function in the 'mgcv' package in R (Wood, 2011). We tested the full covariate model then removed poor fitting covariates until we received the best fit model. We looked for the highest deviance explained while minimizing restricted maximum likelihood (REML) value.
 
-### **Results** 
-Although there was variation in CPUT across paired sites (i.e. river stems), we overall found beaver ponds had on average significantly higher catch per unit trap (CPUT) of coho compared to their paired reference locations (one-way paired T-test: t(6) = 3.22, p-value = 0.009; Figure 1). As beaver ponds do in fact enhance coho CPUT, we next looked at which environmental factors might explain the variation in CPUT across beaver pond vs reference and site. Our best fitting model consisted of the following environmental factors: dissolved oxygen, temperature, water depth, distance from mainstream river stem, and ice thickness
+### **Results**
 
+Although there was variation in CPUT across paired sites (i.e. river stems), we overall found beaver ponds had on average significantly higher catch per unit trap (CPUT) of coho compared to their paired reference locations (one-way paired T-test: t(6) = 3.22, p-value = 0.009; Figure 1). As beaver ponds do in fact enhance coho CPUT, we next looked at which environmental factors might explain the variation in CPUT across beaver pond vs reference and site. Our best fitting model consisted of the following environmental factors: dissolved oxygen, temperature, water depth, distance from mainstream river stem, and ice thickness.
+
+```{r, include = FALSE}
+library(here)
+library(ggplot2)
+library(tidyr)
+library(lubridate)
+library(dplyr)
+library(corrplot)
+library(FactoMineR)
+library(factoextra)
+library(car)
+library(visreg)
+library(mgcv)
+library(performance)
+library(PairedData)
+library(gratia)
+library(mgcViz) 
+library(patchwork)
+library(PNWColors)
+library(wesanderson)
+library(see)
+
+here::here() 
+all_dat2 <- read.csv("all_data_micro.csv")
+```
+
+```{r, include = FALSE}
+#Clean up data and make color pal
+#load trap data
+str(all_dat2)
+all_dat2 <- subset(all_dat2, month == "Feb" | month =="Jan" & year>2014)
+
+all_dat2$Site <- as.factor(all_dat2$Site)
+all_dat2$treatment <- as.factor(all_dat2$Treatment)
+all_dat2$log10_Coho_CPUT <- log10(all_dat2$Coho.CPUT + min(all_dat2$Coho.CPUT[all_dat2$Coho.CPUT > 0])/10)
+all_dat2$log10_Coho_CPUT2 <- log10(all_dat2$Coho.CPUT + min(all_dat2$Coho.CPUT[all_dat2$Coho.CPUT > 0])/10)
+
+#clean up column names
+colnames(all_dat2)[19] <- "velocity" #rename the m/s
+colnames(all_dat2)[13] <- "coho_under_70" #rename the m/s
+colnames(all_dat2)[14] <- "coho_over_70" #rename the m/s
+
+#outliers
+all_dat2 <- subset(all_dat2, total_depth>0)
+
+pal <- data.frame(Site = unique(all_dat2$Site.name), col = rev(wes_palette(name="Zissou1", n=7, type="continuous")))
+
+#summarize traps per site
+all_dat3 <- all_dat2 %>% group_by(Site, treatment) %>%
+  reframe(
+    mean.Coho.CPUT = mean(Coho.CPUT)
+  )
+#log CPUT
+all_dat3$log10_Coho_CPUT = log10(all_dat3$mean.Coho.CPUT + min(all_dat3$mean.Coho.CPUT[all_dat3$mean.Coho.CPUT > 0])/10)
+
+mean.cput.treatment <- all_dat3 %>%
+  group_by(treatment) %>%
+  summarise(mean_CPUT = mean(log10_Coho_CPUT))
+ 
+```
+
+```{r}
+#Question 1:  Does beaver pond presence enhance coho CPUT? 
+
+#One-way paired T-test
+Beaver_pond <- subset(all_dat3,  treatment == "beaver pond", log10_Coho_CPUT,
+                 drop = TRUE)
+reference <- subset(all_dat3,  treatment == "reference", log10_Coho_CPUT,
+                drop = TRUE)
+mod.t.test <- t.test(Beaver_pond, reference, paired = TRUE, alternative = "greater") # p = .009
+```
+
+```{r}
+
+#| layout-ncol: 1
+#| fig-cap: 
+#|   - "**Figure 1.** The CPUT of coho across site and treatment.The distribution of the raw CPUT of coho data across treatment is shown via the violin plot and the jittered opaque dots by site color. The site mean CPUT of coho across treatment is represented via the solid color points and the paired design of the sites across treatment via the connected lines. The overall mean CPUT of coho across treatment is shown by the black diamond points."
+
+
+ggplot(all_dat2)+
+  geom_violin(aes(x = treatment, y = log10_Coho_CPUT))+
+   geom_jitter(aes(x  = treatment, y =log10_Coho_CPUT, color = Site),
+             alpha = 0.2, size = 2.5, width = 0.1)+
+  geom_line(all_dat3, mapping = aes(x = treatment, y = log10_Coho_CPUT, group = Site, color = Site), 
+            lty = 1, lwd = 1.2) + 
+  geom_point(all_dat3, mapping = aes(x = treatment, y = log10_Coho_CPUT, color = Site),
+             size = 2.5)+
+  scale_color_manual(values = pal$col)+
+  geom_point(mean.cput.treatment, mapping = aes(x = treatment, y = mean_CPUT), size = 3, pch = 18, color = "black")+
+   ylab("CPUT of Coho (log10)")+
+  xlab("")+
+  theme_bw()
+
+```
+
+### **References**
+
+West, B.T., Welch, K.B. and Galecki, A.T., 2022. Linear mixed models: a practical guide using statistical software. Chapman and Hall/CRC.
+
+Wood, S. N. 2011. Fast stable restricted maximum likelihood and marginal likelihood estimation of semiparametric generalized linear models. In Journal of the Royal Statistical Society (B) (Vol. 73, Issue 1, pp. 3--36).

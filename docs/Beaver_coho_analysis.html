@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -140,6 +106,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#methods" id="toc-methods" class="nav-link active" data-scroll-target="#methods"><strong>Methods</strong></a></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><strong>Results</strong></a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><strong>References</strong></a></li>
   </ul>
 </nav>
     </div>
@@ -166,13 +133,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Authors:</strong> Mallarie Yeager and Mason Smith</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Beaver_pond.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Beaver pond in Alaska (https://alaskamagazine.com/authentic-alaska/wildlife-nature/beavers-make-their-mark-on-alaska/)</figcaption>
+<p><img src="Beaver_pond.png" class="lightbox img-fluid figure-img"></p>
+<figcaption class="figure-caption"><strong>Beaver pond in Alaska</strong> <a href="https://alaskamagazine.com/authentic-alaska/wildlife-nature/beavers-make-their-mark-on-alaska/">photo reference</a></figcaption>
 </figure>
 </div>
-<section id="purpose-in-collaboration-with-folks-at-hcd-mason-and-mallarie-analyzed-success-of-coho-within-beaver-bonds-and-downstream-reference-areas-within-7-streams.-in-this-short-report-we-illustrate-our-methods-on-analysis-written-results-with-corresponding-figures-and-a-small-discussion-on-specifc-future-variables-one-might-want-to-consider-if-expanding-on-this-work." class="level4">
-<h4 class="anchored" data-anchor-id="purpose-in-collaboration-with-folks-at-hcd-mason-and-mallarie-analyzed-success-of-coho-within-beaver-bonds-and-downstream-reference-areas-within-7-streams.-in-this-short-report-we-illustrate-our-methods-on-analysis-written-results-with-corresponding-figures-and-a-small-discussion-on-specifc-future-variables-one-might-want-to-consider-if-expanding-on-this-work."><strong>Purpose:</strong> In collaboration with folks at HCD, Mason and Mallarie analyzed success of coho within beaver bonds and downstream reference areas within 7 streams. In this “Short Report”, we illustrate our methods on analysis, written results with corresponding figures and a small discussion on specifc future variables one might want to consider if expanding on this work.</h4>
+<section id="purpose-in-collaboration-with-folks-at-hcd-mason-and-mallarie-analyzed-success-of-coho-within-beaver-bonds-and-downstream-reference-areas-within-7-streams.-in-this-short-report-we-illustrate-our-methods-on-analysis-written-results-with-corresponding-figures-and-a-small-discussion-on-specific-future-variables-one-might-want-to-consider-if-expanding-on-this-work." class="level5 justify">
+<h5 class="anchored" data-anchor-id="purpose-in-collaboration-with-folks-at-hcd-mason-and-mallarie-analyzed-success-of-coho-within-beaver-bonds-and-downstream-reference-areas-within-7-streams.-in-this-short-report-we-illustrate-our-methods-on-analysis-written-results-with-corresponding-figures-and-a-small-discussion-on-specific-future-variables-one-might-want-to-consider-if-expanding-on-this-work."><strong>Purpose:</strong> In collaboration with folks at HCD, Mason and Mallarie analyzed success of coho within beaver bonds and downstream reference areas within 7 streams. In this “Short Report”, we illustrate our methods on analysis, written results with corresponding figures and a small discussion on specific future variables one might want to consider if expanding on this work.</h5>
 </section>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="beaver.jpg" class="lightbox img-fluid figure-img"></p>
+<figcaption class="figure-caption"><strong>Beaver</strong> <a href="https://faculty.ung.edu/jhamilton/tumblingcreek/beaverpond/beaverpond.htm">photo reference</a></figcaption>
+</figure>
+</div>
 <section id="methods" class="level3">
 <h3 class="anchored" data-anchor-id="methods"><strong>Methods</strong></h3>
 <section id="analyses" class="level5">
@@ -182,13 +155,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="results" class="level3">
 <h3 class="anchored" data-anchor-id="results"><strong>Results</strong></h3>
-<p>Although there was variation in CPUT across paired sites (i.e.&nbsp;river stems), we overall found beaver ponds had on average significantly higher catch per unit trap (CPUT) of coho compared to their paired reference locations (one-way paired T-test: t(6) = 3.22, p-value = 0.009; Figure 1). As beaver ponds do in fact enhance coho CPUT, we next looked at which environmental factors might explain the variation in CPUT across beaver pond vs reference and site. Our best fitting model consisted of the following environmental factors: dissolved oxygen, temperature, water depth, distance from mainstream river stem, and ice thickness</p>
+<p>Although there was variation in CPUT across paired sites (i.e.&nbsp;river stems), we overall found beaver ponds had on average significantly higher catch per unit trap (CPUT) of coho compared to their paired reference locations (one-way paired T-test: t(6) = 3.22, p-value = 0.009; Figure 1). As beaver ponds do in fact enhance coho CPUT, we next looked at which environmental factors might explain the variation in CPUT across beaver pond vs reference and site. Our best fitting model consisted of the following environmental factors: dissolved oxygen, temperature, water depth, distance from mainstream river stem, and ice thickness.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<div class="cell-output-display">
+<p><img src="Beaver_coho_analysis_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</section>
+<section id="references" class="level3">
+<h3 class="anchored" data-anchor-id="references"><strong>References</strong></h3>
+<p>West, B.T., Welch, K.B. and Galecki, A.T., 2022. Linear mixed models: a practical guide using statistical software. Chapman and Hall/CRC.</p>
+<p>Wood, S. N. 2011. Fast stable restricted maximum likelihood and marginal likelihood estimation of semiparametric generalized linear models. In Journal of the Royal Statistical Society (B) (Vol. 73, Issue 1, pp.&nbsp;3–36).</p>
 
 
 </section>
