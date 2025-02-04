@@ -4,6 +4,9 @@ execute:
   echo: false
 editor_options: 
   chunk_output_type: console
+format: 
+  html: 
+    code-link: true
 ---
 
 **Authors:** Mallarie Yeager and Mason Smith
@@ -11,7 +14,16 @@ editor_options:
 ![**Beaver pond in Alaska** [photo reference](https://alaskamagazine.com/authentic-alaska/wildlife-nature/beavers-make-their-mark-on-alaska/)](Beaver_pond.png){.lightbox}
 
 ::: justify
-##### **Purpose:** In collaboration with folks at HCD, Mason and Mallarie analyzed success of coho within beaver bonds and downstream reference areas within 7 streams. In this "Short Report", we illustrate our methods on analysis, written results with corresponding figures and a small discussion on specific future variables one might want to consider if expanding on this work.
+### **Purpose** 
+In collaboration with folks at HCD (Luke Byker and Julianne Rosset), Mason and Mallarie analyzed success of coho within beaver bonds and downstream reference areas within 7 streams. In this "Short Report", we illustrate our methods on analysis, written results with corresponding figures and a small discussion on specific future variables one might want to consider if expanding on this work.
+
+###### ***Objective: To understand how beaver pond presence influences coho overwintering success***
+
+
+**Question 1:** Does beaver pond presence enhance coho catch per unit trap (CPUT)? 
+
+**Question 2:** Are there environmental drivers which may explain beaver pond enhancement?
+
 :::
 
 ![**Beaver** [photo reference](https://faculty.ung.edu/jhamilton/tumblingcreek/beaverpond/beaverpond.htm)](beaver.jpg){.lightbox}
@@ -24,7 +36,8 @@ To analyze whether beaver ponds enhance juvenile coho presence in this study, we
 
 ### **Results**
 
-Although there was variation in CPUT across paired sites (i.e. river stems), we overall found beaver ponds had on average significantly higher catch per unit trap (CPUT) of coho compared to their paired reference locations (one-way paired T-test: t(6) = 3.22, p-value = 0.009; Figure 1). As beaver ponds do in fact enhance coho CPUT, we next looked at which environmental factors might explain the variation in CPUT across beaver pond vs reference and site. Our best fitting model consisted of the following environmental factors: dissolved oxygen, temperature, water depth, distance from mainstream river stem, and ice thickness.
+Although there was variation in CPUT across paired sites (i.e. river stems), we overall found beaver ponds had on average significantly higher catch per unit trap (CPUT) of coho compared to their paired reference locations (one-way paired T-test: t(6) = 3.22, p-value = 0.009; Figure 1).
+As beaver ponds do in fact enhance coho CPUT, we next looked at which environmental factors might explain the variation in CPUT across beaver pond vs reference and site. Our best fitting model consisted of the following environmental factors: dissolved oxygen, temperature, water depth, distance from mainstream river stem, and ice thickness.
 
 ```{r, include = FALSE}
 library(here)
@@ -51,7 +64,7 @@ here::here()
 all_dat2 <- read.csv("all_data_micro.csv")
 ```
 
-```{r, include = FALSE}
+```{r, include = F}
 #Clean up data and make color pal
 #load trap data
 str(all_dat2)
@@ -98,10 +111,8 @@ mod.t.test <- t.test(Beaver_pond, reference, paired = TRUE, alternative = "great
 ```
 
 ```{r}
-
-#| layout-ncol: 1
-#| fig-cap: 
-#|   - "**Figure 1.** The CPUT of coho across site and treatment.The distribution of the raw CPUT of coho data across treatment is shown via the violin plot and the jittered opaque dots by site color. The site mean CPUT of coho across treatment is represented via the solid color points and the paired design of the sites across treatment via the connected lines. The overall mean CPUT of coho across treatment is shown by the black diamond points."
+#| label: Figure_1
+#| fig-cap: "**Figure 1.** The CPUT of coho across site and treatment. The distribution of the raw CPUT of coho data across treatment is shown via the violin plot and the jittered opaque dots by site color. The site mean CPUT of coho across treatment is represented via the solid color points and the paired design of the sites across treatment via the connected lines. The overall mean CPUT of coho across treatment is shown by the black diamond points."
 
 
 ggplot(all_dat2)+
@@ -117,8 +128,8 @@ ggplot(all_dat2)+
    ylab("CPUT of Coho (log10)")+
   xlab("")+
   theme_bw()
-
 ```
+
 
 ### **References**
 
