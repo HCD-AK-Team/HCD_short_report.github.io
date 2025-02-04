@@ -127,9 +127,6 @@ ggplot(all_dat2)+
 ggsave("Figure1_CPUTofCoho_across_treatment_site.png", dpi = 500)
 ```
 
-<!-- #| label: Figure_1 -->
-<!-- #| fig-cap: "**Figure 1.** The CPUT of coho across site and treatment. The distribution of the raw CPUT of coho data across treatment is shown via the violin plot and the jittered opaque dots by site color. The site mean CPUT of coho across treatment is represented via the solid color points and the paired design of the sites across treatment via the connected lines. The overall mean CPUT of coho across treatment is shown by the black diamond points." -->
-
 ![**Figure 1.** The CPUT of coho across site and treatment. The distribution of the raw CPUT of coho data across treatment is shown via the violin plot and the jittered opaque dots by site color. The site mean CPUT of coho across treatment is represented via the solid color points and the paired design of the sites across treatment via the connected lines. The overall mean CPUT of coho across treatment is shown by the black diamond points.](Figure1_CPUTofCoho_across_treatment_site.png)
 
 
