@@ -2,8 +2,6 @@
 
 This repo builds out the structure and content of our short reports website. Still in progress but, you can access the website [here](https://hcd-ak-team.github.io/HCD_short_report.github.io/)!
 
-![homepage](homescreen_shot.png)
-
 #### Authors: 
 
 Mason Smith: @masonsmith-NOAA

@@ -37,7 +37,6 @@ To analyze whether beaver ponds enhance juvenile coho presence in this study, we
 
 Although there was variation in CPUT across paired sites (i.e. river stems), we overall found beaver ponds had on average significantly higher catch per unit trap (CPUT) of coho compared to their paired reference locations (one-way paired T-test: t(6) = 3.22, p-value = 0.009; Figure 1).
 
-
 ```{r, include = FALSE}
 library(here)
 library(ggplot2)
@@ -127,38 +126,37 @@ ggplot(all_dat2)+
 
 ![**Figure 1.** The CPUT of coho across site and treatment. The distribution of the raw CPUT of coho data across treatment is shown via the violin plot and the jittered opaque dots by site color. The site mean CPUT of coho across treatment is represented via the solid color points and the paired design of the sites across treatment via the connected lines. The overall mean CPUT of coho across treatment is shown by the black diamond points.](Figure1_CPUTofCoho_across_treatment_site.png)
 
-As beaver ponds do in fact enhance coho CPUT, we next looked at which environmental variables might explain the variation in CPUT across beaver pond vs reference and site. Through performing model selection via removing poor fitting covariates, we found our best fitting model via percent deviance explained and AIC selection (Table 1). Our best fitting model consisted of the following environmental factors: dissolved oxygen, temperature, water depth, distance from mainstream river stem, ice thickness and pH (Table 1). 
+As beaver ponds do in fact enhance coho CPUT, we next looked at which environmental variables might explain the variation in CPUT across beaver pond vs reference and site. Through performing model selection via removing poor fitting covariates, we found our best fitting model via percent deviance explained and AIC selection (Table 1). Our best fitting model consisted of the following environmental factors: dissolved oxygen, temperature, water depth, distance from mainstream river stem, ice thickness and pH (Table 1).
 
-**Table 1.**  Summary of model selection information of the top 5 models identified. Akaike information criterion (AIC), percent deviance explained and Mean Absolute Error (MAE) were used to assess model performance. Bolded values represent the model with the best performance for a given metric. Treatment is a factor variable which designates whether the location was in a beaver pond or the downstream reference location. All models dependent variable was the catch per unit trap of Coho and the model family is a Tweedie distribution with a log link function.
+**Table 1.** Summary of model selection information of the top 5 models identified. Akaike information criterion (AIC), percent deviance explained and Mean Absolute Error (MAE) were used to assess model performance. Bolded values represent the model with the best performance for a given metric. Treatment is a factor variable which designates whether the location was in a beaver pond or the downstream reference location. All models dependent variable was the catch per unit trap of Coho and the model family is a Tweedie distribution with a log link function.
 
-| Model   | Model Covariates                                                                                                                                                                                                             | AIC   | % Deviance Explained | MAE  |
-|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|----------------------|------|
-| Model 1 | Dissolved oxygen * treatment<br>Temperature * treatment<br>Water depth * treatment<br>Mainstream distance * treatment<br>Ice thickness * treatment<br>Conductivity * treatment<br>pH * treatment<br>Site (random effect) | 531.6 | 80.2                 | 2.33 |
-| Model 2 | Dissolved oxygen * treatment<br>Temperature * treatment<br>Water depth * treatment<br>Mainstream distance * treatment<br>Ice thickness * treatment<br>pH * treatment<br>Site (random effect)                                 | **529**   | **80.4**                 | **2.30** |
-| Model 3 | Dissolved oxygen * treatment<br>Water depth * treatment<br>Mainstream distance * treatment<br>Ice thickness * treatment<br>pH * treatment<br>Site (random effect)                                                            | 534.5 | 77.8                 | 2.52 |
-| Model 4 | Dissolved oxygen * treatment<br>Temperature * treatment<br>Water depth * treatment<br>Mainstream distance * treatment<br>Ice thickness * treatment<br>Site (random effect)                                                   | 534   | 78.3                 | 2.54 |
-| Model 5 | Dissolved oxygen * treatment<br>Water depth * treatment<br>Mainstream distance * treatment<br>Ice thickness * treatment<br>Site (random effect)                                                                              | 537   | 76.3                 | 2.67 |
+| Model   | Model Covariates                                                                                                                                                                                                                | AIC     | \% Deviance Explained | MAE      |
+|---------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|-----------------------|----------|
+| Model 1 | Dissolved oxygen \* treatment<br>Temperature \* treatment<br>Water depth \* treatment<br>Mainstream distance \* treatment<br>Ice thickness \* treatment<br>Conductivity \* treatment<br>pH \* treatment<br>Site (random effect) | 531.6   | 80.2                  | 2.33     |
+| Model 2 | Dissolved oxygen \* treatment<br>Temperature \* treatment<br>Water depth \* treatment<br>Mainstream distance \* treatment<br>Ice thickness \* treatment<br>pH \* treatment<br>Site (random effect)                              | **529** | **80.4**              | **2.30** |
+| Model 3 | Dissolved oxygen \* treatment<br>Water depth \* treatment<br>Mainstream distance \* treatment<br>Ice thickness \* treatment<br>pH \* treatment<br>Site (random effect)                                                          | 534.5   | 77.8                  | 2.52     |
+| Model 4 | Dissolved oxygen \* treatment<br>Temperature \* treatment<br>Water depth \* treatment<br>Mainstream distance \* treatment<br>Ice thickness \* treatment<br>Site (random effect)                                                 | 534     | 78.3                  | 2.54     |
+| Model 5 | Dissolved oxygen \* treatment<br>Water depth \* treatment<br>Mainstream distance \* treatment<br>Ice thickness \* treatment<br>Site (random effect)                                                                             | 537     | 76.3                  | 2.67     |
 
-Significant covariates on CPUT of coho in the best fit model included the dissolved oxygen in reference locations (p = 0.026), the mainstream distance of a beaver pond (p = 0.03), the ice thickness in a beaver pond (p = 0.045) and the pH in a beaver pond (p = 0.050; Table 2). Additionally, we found a marginal effect of water depth within beaver ponds on CPUT of coho (p = 0.076; Table 2). The partial effects plots showed dissolved oxygen at the reference sites had a significant negative relationship with coho CPUT (Figure 2a).The best fit model also showed clear patterns of coho CPUT based on water depth, mainstem distance, ice thickness and pH in beaver ponds (Table 2). Although not significant, temperature within beaver ponds displayed an unimodal shape with CPUT of coho, peaking near 2° C (Figure 2b). Similarly, water depth within beaver ponds had an unimodal shape, peaking near 0.75 m (Figure 2d). The mainstem distance effect appeared to have a threshold effect near 750m, after which there was a negative relationship between the distance and coho CPUT (Figure 2c). Ice thickness had a negative relationship on CPUT of coho in beaver ponds (Figure 2e). Lastly, pH within beaver ponds seems to have an inverse J-shape to the relationship (Figure 2f).These results suggest beaver pond enhancement of coho CPUT may be most effective in areas of low dissolved oxygen, beaver ponds which display moderate levels of depth and temperature, low ice thickness, low pH and nearer to the mainstream of the river. 
- 
- **Table 2.**  Summary statistics of the best fit model: Catch per unit trap of Coho ~ s(Dissolved oxygen, by = Treatment)  +  s(Temperature, by = Treatment)  + s(Water depth, by = Treatment)  + s(Mainstream distance, by = Treatment)  + s(Ice thickness, by = Treatment)   + s(pH, by = Treatment)  + s(Site, bs = “re). edf = effective degrees of freedom, Ref.df = reference degrees of freedom. Model family is a Tweedie distribution with a log link function. Adjusted R-squared = 0.84, Deviance explained = 80.4, - REML = 267.47.
+Significant covariates on CPUT of coho in the best fit model included the dissolved oxygen in reference locations (p = 0.026), the mainstream distance of a beaver pond (p = 0.03), the ice thickness in a beaver pond (p = 0.045) and the pH in a beaver pond (p = 0.050; Table 2). Additionally, we found a marginal effect of water depth within beaver ponds on CPUT of coho (p = 0.076; Table 2). The partial effects plots showed dissolved oxygen at the reference sites had a significant negative relationship with coho CPUT (Figure 2a).The best fit model also showed clear patterns of coho CPUT based on water depth, mainstem distance, ice thickness and pH in beaver ponds (Table 2). Although not significant, temperature within beaver ponds displayed an unimodal shape with CPUT of coho, peaking near 2° C (Figure 2b). Similarly, water depth within beaver ponds had an unimodal shape, peaking near 0.75 m (Figure 2d). The mainstem distance effect appeared to have a threshold effect near 750m, after which there was a negative relationship between the distance and coho CPUT (Figure 2c). Ice thickness had a negative relationship on CPUT of coho in beaver ponds (Figure 2e). Lastly, pH within beaver ponds seems to have an inverse J-shape to the relationship (Figure 2f).These results suggest beaver pond enhancement of coho CPUT may be most effective in areas of low dissolved oxygen, beaver ponds which display moderate levels of depth and temperature, low ice thickness, low pH and nearer to the mainstream of the river.
 
-| Covariates                         |  edf | Ref. df | F-Statistic | P-value |
-|------------------------------------|:----:|:-------:|:-----------:|:-------:|
-| Dissolved oxygen:Beaver pond       |   1  |    1    |    0.284    |  0.595  |
-| Dissolved oxygen:Reference site    |   1  |    1    |    4.622    | **0.026**  |
-| Temperature:Beaver pond            | 2.98 |   3.74  |    0.868    |  0.376  |
-| Temperature:Reference site         |   1  |    1    |    0.793    |  0.378  |
+**Table 2.** Summary statistics of the best fit model: Catch per unit trap of Coho \~ s(Dissolved oxygen, by = Treatment) + s(Temperature, by = Treatment) + s(Water depth, by = Treatment) + s(Mainstream distance, by = Treatment) + s(Ice thickness, by = Treatment) + s(pH, by = Treatment) + s(Site, bs = "re). edf = effective degrees of freedom, Ref.df = reference degrees of freedom. Model family is a Tweedie distribution with a log link function. Adjusted R-squared = 0.84, Deviance explained = 80.4, - REML = 267.47.
+
+| Covariates                         | edf  | Ref. df | F-Statistic |  P-value  |
+|------------------------------------|:----:|:-------:|:-----------:|:---------:|
+| Dissolved oxygen:Beaver pond       |  1   |    1    |    0.284    |   0.595   |
+| Dissolved oxygen:Reference site    |  1   |    1    |    4.622    | **0.026** |
+| Temperature:Beaver pond            | 2.98 |  3.74   |    0.868    |   0.376   |
+| Temperature:Reference site         |  1   |    1    |    0.793    |   0.378   |
 | Water depth:Beaver pond            | 2.49 |  3.074  |    2.276    |  *0.076*  |
-| Water depth:Reference site         |   1  |    1    |    1.824    |  0.160  |
-| Mainstream distance:Beaver pond    | 3.13 |  3.437  |    2.298    | **0.033**  |
-| Mainstream distance:Reference site |   1  |    1    |    1.998    |  0.147  |
-| Ice thickness:Beaver pond          |   1  |    1    |    4.275    | **0.045**  |
-| Ice thickness:Reference site       |   1  |    1    |    0.371    |  0.353  |
-| pH:Beaver pond                     | 2.23 |   2.62  |    2.021    |  **0.050**  |
-| pH:Reference site                  |   1  |    11   |    1.001    |  0.428  |
-| Site                               | 3.93 |    6    |    2.231    | **0.002**  |
-
+| Water depth:Reference site         |  1   |    1    |    1.824    |   0.160   |
+| Mainstream distance:Beaver pond    | 3.13 |  3.437  |    2.298    | **0.033** |
+| Mainstream distance:Reference site |  1   |    1    |    1.998    |   0.147   |
+| Ice thickness:Beaver pond          |  1   |    1    |    4.275    | **0.045** |
+| Ice thickness:Reference site       |  1   |    1    |    0.371    |   0.353   |
+| pH:Beaver pond                     | 2.23 |  2.62   |    2.021    | **0.050** |
+| pH:Reference site                  |  1   |   11    |    1.001    |   0.428   |
+| Site                               | 3.93 |    6    |    2.231    | **0.002** |
 
 ```{r, include=FALSE}
 #gam
@@ -178,7 +176,6 @@ m2 <- mgcv::gam(Coho.CPUT ~
                 method = 'REML')
 (m2_sum <- summary(m2))
 ```
-
 
 ```{r, include=FALSE}
 
@@ -336,8 +333,7 @@ DO.plot /Temp.plot/  mainstream.dist.plot / water.depth.plot / ice.plot / pH.plo
 #ggsave("Figure2_covariate_partial_effects_plots.png", dpi = 500, width = 10, height = 20)
 ```
 
-![**Figure 2.** The partial effects plots of the five covariates that were identified in the best fitting model of coho CPUT. Each row is a different covariate, labeled by the title on the upper left side of the plot. The left column is the partial effect plots in the beaver ponds and the right column is the partial effects plots in the reference locations. Points overlaid on graphs represent the environmental covariate by coho catch of a single trap (while holding all other covariates constant) at each site (coded by color).](Figure2_covariate_partial_effects_plots_best_mod.png)
-As expected, there was also a significant random effect of site (p = 0.002), suggesting that some unmeasured variability contributed significantly to the coho CPUT across different study sites. This can be seen in most of the effects plots having clear clustering, with the exception of water depth and pH which appeared more evenly distributed (Figure 2d,f). The effect plots by treatment give more nuance to the concept of enhancement. For example, although there was no clear pattern for DO in beaver ponds, among the paired sites, enhancement appears to take place in the areas that had a high DO at the reference sites (e.g., Whiskers Creek Side Slough, Figure 2). 
+![Figure 2. The partial effects plots of the five covariates that were identified in the best fitting model of coho CPUT. Each row is a different covariate, labeled by the title on the upper left side of the plot. The left column is the partial effect plots in the beaver ponds and the right column is the partial effects plots in the reference locations. Points overlaid on graphs represent the environmental covariate by coho catch of a single trap (while holding all other covariates constant) at each site (coded by color).](Figure2_covariate_partial_effects_plots_best_mod.png) As expected, there was also a significant random effect of site (p = 0.002), suggesting that some unmeasured variability contributed significantly to the coho CPUT across different study sites. This can be seen in most of the effects plots having clear clustering, with the exception of water depth and pH which appeared more evenly distributed (Figure 2d,f). The effect plots by treatment give more nuance to the concept of enhancement. For example, although there was no clear pattern for DO in beaver ponds, among the paired sites, enhancement appears to take place in the areas that had a high DO at the reference sites (e.g., Whiskers Creek Side Slough, Figure 2).
 
 ### **References**
 
