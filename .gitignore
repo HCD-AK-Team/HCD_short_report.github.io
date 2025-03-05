@@ -2,5 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
-
 /.quarto/
+Beaver_coho_analysis_test.aux
+Beaver_coho_analysis_test.tex
+Beaver_coho_analysis_test.log
+Beaver_coho_analysis_test.qmd
