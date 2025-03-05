@@ -9,6 +9,7 @@ website:
       - href: index.qmd
         text: Home
       - Beaver_coho_analysis.qmd
+      
 
 format:
   html:
