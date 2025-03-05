@@ -338,8 +338,6 @@ As expected, there was also a significant random effect of site (p = 0.002), sug
 
 ![Figure 2. The partial effects plots of the five covariates that were identified in the best fitting model of coho CPUT. Each row is a different covariate, labeled by the title on the upper left side of the plot. The left column is the partial effect plots in the beaver ponds and the right column is the partial effects plots in the reference locations. Points overlaid on graphs represent the environmental covariate by coho catch of a single trap (while holding all other covariates constant) at each site (coded by color).](Figure2_covariate_partial_effects_plots_best_mod.png)
 
-
-
 ### **References**
 
 Dormann, C.F., Elith, J., Bacher, S., Buchmann, C., Carl, G., Carré, G., Marquéz, J.R.G., Gruber, B., Lafourcade, B., Leitão, P.J. and Münkemüller, T., 2013. Collinearity: a review of methods to deal with it and a simulation study evaluating their performance. Ecography, 36(1), pp.27-46.
