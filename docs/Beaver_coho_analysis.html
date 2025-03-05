@@ -137,11 +137,11 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>Table 1.</strong> Summary of model selection information of the top 5 models identified. Akaike information criterion (AIC), percent deviance explained and Mean Absolute Error (MAE) were used to assess model performance. Bolded values represent the model with the best performance for a given metric. Treatment is a factor variable which designates whether the location was in a beaver pond or the downstream reference location. All models dependent variable was the catch per unit trap of Coho and the model family is a Tweedie distribution with a log link function.</p>
 <table class="table">
 <colgroup>
-<col style="width: 3%">
-<col style="width: 83%">
-<col style="width: 2%">
-<col style="width: 8%">
-<col style="width: 2%">
+<col style="width: 13%">
+<col style="width: 45%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
 </colgroup>
 <thead><tr class="header">
 <th>Model</th>
@@ -188,15 +188,15 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
-<p>Significant covariates on CPUT of coho in the best fit model included the dissolved oxygen in reference locations (p = 0.026), the mainstream distance of a beaver pond (p = 0.03), the ice thickness in a beaver pond (p = 0.045) and the pH in a beaver pond (p = 0.050; Table 2). Additionally, we found a marginal effect of water depth within beaver ponds on CPUT of coho (p = 0.076; Table 2). The partial effects plots showed dissolved oxygen at the reference sites had a significant negative relationship with coho CPUT (Figure 2a).The best fit model also showed clear patterns of coho CPUT based on water depth, mainstem distance, ice thickness and pH in beaver ponds (Table 2). Although not significant, temperature within beaver ponds displayed an unimodal shape with CPUT of coho, peaking near 2° C (Figure 2b). Similarly, water depth within beaver ponds had an unimodal shape, peaking near 0.75 m (Figure 2d). The mainstem distance effect appeared to have a threshold effect near 750m, after which there was a negative relationship between the distance and coho CPUT (Figure 2c). Ice thickness had a negative relationship on CPUT of coho in beaver ponds (Figure 2e). Lastly, pH within beaver ponds seems to have an inverse J-shape to the relationship (Figure 2f).These results suggest beaver pond enhancement of coho CPUT may be most effective in areas of low dissolved oxygen, beaver ponds which display moderate levels of depth and temperature, low ice thickness, low pH and nearer to the mainstream of the river.</p>
+<p>Significant covariates on CPUT of coho in the best fit model included the dissolved oxygen in reference locations (p = 0.026), the mainstream distance of a beaver pond (p = 0.03), the ice thickness in a beaver pond (p = 0.045) and the pH in a beaver pond (p = 0.050; Table 2). Additionally, we found a marginal effect of water depth within beaver ponds on CPUT of coho (p = 0.076; Table 2).</p>
 <p><strong>Table 2.</strong> Summary statistics of the best fit model: Catch per unit trap of Coho ~ s(Dissolved oxygen, by = Treatment) + s(Temperature, by = Treatment) + s(Water depth, by = Treatment) + s(Mainstream distance, by = Treatment) + s(Ice thickness, by = Treatment) + s(pH, by = Treatment) + s(Site, bs = “re). edf = effective degrees of freedom, Ref.df = reference degrees of freedom. Model family is a Tweedie distribution with a log link function. Adjusted R-squared = 0.84, Deviance explained = 80.4, - REML = 267.47.</p>
 <table class="table">
 <colgroup>
-<col style="width: 49%">
+<col style="width: 48%">
 <col style="width: 8%">
 <col style="width: 12%">
 <col style="width: 17%">
-<col style="width: 12%">
+<col style="width: 14%">
 </colgroup>
 <thead><tr class="header">
 <th>Covariates</th>
@@ -299,7 +299,12 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
-<p><img src="Figure2_covariate_partial_effects_plots_best_mod.png" class="img-fluid" alt="Figure 2. The partial effects plots of the five covariates that were identified in the best fitting model of coho CPUT. Each row is a different covariate, labeled by the title on the upper left side of the plot. The left column is the partial effect plots in the beaver ponds and the right column is the partial effects plots in the reference locations. Points overlaid on graphs represent the environmental covariate by coho catch of a single trap (while holding all other covariates constant) at each site (coded by color)."> As expected, there was also a significant random effect of site (p = 0.002), suggesting that some unmeasured variability contributed significantly to the coho CPUT across different study sites. This can be seen in most of the effects plots having clear clustering, with the exception of water depth and pH which appeared more evenly distributed (Figure 2d,f). The effect plots by treatment give more nuance to the concept of enhancement. For example, although there was no clear pattern for DO in beaver ponds, among the paired sites, enhancement appears to take place in the areas that had a high DO at the reference sites (e.g., Whiskers Creek Side Slough, Figure 2).</p>
+<p>The partial effects plots showed dissolved oxygen at the reference sites had a significant negative relationship with coho CPUT (Figure 2a).The best fit model also showed clear patterns of coho CPUT based on water depth, mainstem distance, ice thickness and pH in beaver ponds (Table 2). Although not significant, temperature within beaver ponds displayed an unimodal shape with CPUT of coho, peaking near 2° C (Figure 2b). Similarly, water depth within beaver ponds had an unimodal shape, peaking near 0.75 m (Figure 2d). The mainstem distance effect appeared to have a threshold effect near 750m, after which there was a negative relationship between the distance and coho CPUT (Figure 2c). Ice thickness had a negative relationship on CPUT of coho in beaver ponds (Figure 2e). Lastly, pH within beaver ponds seems to have an inverse J-shape to the relationship (Figure 2f).These results suggest beaver pond enhancement of coho CPUT may be most effective in areas of low dissolved oxygen, beaver ponds which display moderate levels of depth and temperature, low ice thickness, low pH and nearer to the mainstream of the river.</p>
+<p>As expected, there was also a significant random effect of site (p = 0.002), suggesting that some unmeasured variability contributed significantly to the coho CPUT across different study sites. This can be seen in most of the effects plots having clear clustering, with the exception of water depth and pH which appeared more evenly distributed (Figure 2d,f). The effect plots by treatment give more nuance to the concept of enhancement. For example, although there was no clear pattern for DO in beaver ponds, among the paired sites, enhancement appears to take place in the areas that had a high DO at the reference sites (e.g., Whiskers Creek Side Slough, Figure 2).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="Figure2_covariate_partial_effects_plots_best_mod.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure 2. The partial effects plots of the five covariates that were identified in the best fitting model of coho CPUT. Each row is a different covariate, labeled by the title on the upper left side of the plot. The left column is the partial effect plots in the beaver ponds and the right column is the partial effects plots in the reference locations. Points overlaid on graphs represent the environmental covariate by coho catch of a single trap (while holding all other covariates constant) at each site (coded by color).</figcaption></figure>
+</div>
 </section><section id="references" class="level3"><h3 class="anchored" data-anchor-id="references"><strong>References</strong></h3>
 <p>Dormann, C.F., Elith, J., Bacher, S., Buchmann, C., Carl, G., Carré, G., Marquéz, J.R.G., Gruber, B., Lafourcade, B., Leitão, P.J. and Münkemüller, T., 2013. Collinearity: a review of methods to deal with it and a simulation study evaluating their performance. Ecography, 36(1), pp.27-46.</p>
 <p>West, B.T., Welch, K.B. and Galecki, A.T., 2022. Linear mixed models: a practical guide using statistical software. Chapman and Hall/CRC.</p>
